@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will you be my Valentine?</title>
+
+  <style>
+    body {
+      background: linear-gradient(to bottom, #f7cfdc, #ffe6ef);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 25px;
+      text-align: center;
+      width: 360px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .photo {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 16px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    .no {
+      background: #e0e0e0;
+      position: absolute;
+    }
+
+    small {
+      display: block;
+      margin-top: 18px;
+      color: gray;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Romantic Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card">
+    <img src="photo.jpg" class="photo" alt="My Love">
+
+    <h2>Nirali, will you be my Valentine? 💖</h2>
+
+    <button class="yes" onclick="yesClicked()">Yes</button>
+    <button class="no" onmouseover="moveNo()">No</button>
+
+    <small>"No" seems a bit shy 😅</small>
+  </div>
+
+  <script>
+    // Start music after first click (browser rule)
+    document.addEventListener('click', () => {
+      document.getElementById('bgMusic').play();
+    }, { once: true });
+
+    function yesClicked() {
+      document.body.innerHTML = `
+        <div style="
+          background:linear-gradient(to bottom, #f7cfdc, #ffe6ef);
+          height:100vh;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          font-family:Arial;
+          text-align:center;
+          padding:20px;">
+          <h1>
+            💕 She said YES 💕<br><br>
+            Darling, you look perfect tonight ✨<br>
+            I choose you. Always ❤️
+          </h1>
+        </div>`;
+    }
+
+    function moveNo() {
+      const noBtn = document.querySelector('.no');
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 60);
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    }
+  </script>
+
+</body>
+</html>
+r
