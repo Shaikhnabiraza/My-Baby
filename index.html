@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Will you be my Valentine?</title>
 
   <style>
     body {
       background: linear-gradient(to bottom, #f7cfdc, #ffe6ef);
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
       overflow: hidden;
     }
 
@@ -21,28 +23,41 @@
       border-radius: 25px;
       text-align: center;
       width: 360px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+      position: relative;
     }
 
     .photo {
       width: 100%;
-      height: 260px;
+      height: 280px;
       object-fit: cover;
       border-radius: 20px;
       margin-bottom: 15px;
+      background-color: #f0f0f0; /* Place-holder color while loading */
     }
 
     h2 {
+      color: #333;
       margin-bottom: 25px;
+      font-size: 1.5rem;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      height: 50px;
+      align-items: center;
     }
 
     button {
       padding: 12px 28px;
       font-size: 16px;
+      font-weight: bold;
       border-radius: 30px;
       border: none;
       cursor: pointer;
-      margin: 10px;
+      transition: transform 0.2s;
     }
 
     .yes {
@@ -50,55 +65,63 @@
       color: white;
     }
 
+    .yes:hover {
+      transform: scale(1.1);
+    }
+
     .no {
       background: #e0e0e0;
-      position: absolute;
+      color: #555;
+      position: absolute; /* Needed for the movement script */
     }
 
     small {
       display: block;
-      margin-top: 18px;
-      color: gray;
+      margin-top: 25px;
+      color: #888;
+      font-style: italic;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Romantic Background Music -->
   <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <div class="card">
-    <img src="photo.jpg" class="photo" alt="My Love">
+    <img src="img.jpeg" class="photo" alt="Zohaa">
 
-    <h2>Zohaa , will you be my Valentine? 💖</h2>
+    <h2>Zohaa, will you be my Valentine? 💖</h2>
 
-    <button class="yes" onclick="yesClicked()">Yes</button>
-    <button class="no" onmouseover="moveNo()">No</button>
+    <div class="btn-container">
+      <button class="yes" onclick="yesClicked()">Yes</button>
+      <button class="no" id="noBtn" onmouseover="moveNo()" ontouchstart="moveNo()">No</button>
+    </div>
 
     <small>"No" seems a bit shy 😅</small>
   </div>
 
   <script>
-    // Start music after first click (browser rule)
+    // Play music on first interaction
     document.addEventListener('click', () => {
-      document.getElementById('bgMusic').play();
+      const audio = document.getElementById('bgMusic');
+      audio.play().catch(e => console.log("Audio play blocked until interaction"));
     }, { once: true });
 
     function yesClicked() {
       document.body.innerHTML = `
         <div style="
-          background:linear-gradient(to bottom, #f7cfdc, #ffe6ef);
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          font-family:Arial;
-          text-align:center;
-          padding:20px;">
-          <h1>
+          background: linear-gradient(to bottom, #f7cfdc, #ffe6ef);
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: Arial, sans-serif;
+          text-align: center;
+          padding: 20px;">
+          <h1 style="color: #ff4d6d; line-height: 1.5;">
             💕 She said YES 💕<br><br>
             Darling, you look perfect tonight ✨<br>
             I choose you. Always ❤️
@@ -107,9 +130,11 @@
     }
 
     function moveNo() {
-      const noBtn = document.querySelector('.no');
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 60);
+      const noBtn = document.getElementById('noBtn');
+      // Calculate random positions, staying away from the very edges
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+      
       noBtn.style.left = x + 'px';
       noBtn.style.top = y + 'px';
     }
@@ -117,5 +142,3 @@
 
 </body>
 </html>
-r
-
